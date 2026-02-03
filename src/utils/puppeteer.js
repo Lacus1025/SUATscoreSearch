@@ -1,6 +1,6 @@
 import puppeteer from "puppeteer";
-function getCookie(){
-(async () => {
+
+export async function getCookie() {
     const browser = await puppeteer.launch({
         headless: false,
         args: ['--no-sandbox', '--disable-setuid-sandbox']
@@ -10,12 +10,28 @@ function getCookie(){
     await page.goto('https://sso.suat-sz.edu.cn/gravity-login/#/');
 
     console.log('页面已打开，请手动登录...');
+    console.log('登录完成后，按任意键继续...');
+
+    // 等待用户按下任意键
+    await new Promise(resolve => {
+        process.stdin.once('data', resolve);
+    });
 
     // 获取cookie
     const cookies = await page.cookies();
-    console.log('Cookies:', cookies);
+    await browser.close();
 
-    console.log('按 Ctrl+C 关闭浏览器');
-})();
-return cookies;
+    return cookies;
 }
+
+// 使用示例
+async function main() {
+    try {
+        const cookies = await getCookie();
+        console.log('Cookies:', cookies);
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+main();
