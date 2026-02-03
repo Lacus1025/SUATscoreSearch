@@ -1,0 +1,26 @@
+    accountLogin: function accountLogin(verifyParams) {
+      var _this2 = this;
+      var timestamp = Date.now();
+      this.$http({
+        method: 'post',
+        url: auth["h" /* login */],
+        data: {
+          data: _objectSpread({
+            loginType: this.configInfo.loginType,
+            appId: this.$route.query.app_id || null,
+            account: this.form.account,
+            password: this.usingStorePw ? this.form.password : aesEncrypt(md5_default()(this.form.password), md5_default()("".concat(this.form.account).concat(timestamp))),
+            time: timestamp,
+            passwordType: 1
+          }, verifyParams)
+        }
+      }).then(function (response) {
+        var res = response.data || {};
+        _this2.$store.commit('setStoreState', {
+          key: 'userInfo',
+          value: res.user
+        });
+        _this2.$store.commit('setStoreState', {
+          key: 'tokenInfo',
+          value: res.token
+        });
