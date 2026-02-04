@@ -1,13 +1,11 @@
 import puppeteer from "puppeteer";
 import readline from 'readline';
 
-    // const captchaSrc = await page.$eval(' #pane-Account > div > form > div.el-form-item.vertify-code-item.el-form-item--large > div > div:nth-child(2) > img', (img) => img.src);
-    //Base64 form
-    //verify code picture
-    async function getVerifyPic(page){
+    async function getVerifyPic(page,timestamp){
         await page.waitForSelector(' #pane-Account > div > form > div.el-form-item.vertify-code-item.el-form-item--large > div > div:nth-child(2) > img');
+
         return page.screenshot({
-            // 'path':'./page.png',
+            'path':`./page-${timestamp}.png`,
             'clip':{
                 'x':400,
                 'y':300,
@@ -53,15 +51,15 @@ import readline from 'readline';
 
         const headers = response.headers();
         console.log('headers:', headers);
-            return await response.json();
-            // console.log('响应数据:', json);
+        const json = await response.json();
+        console.log('响应数据:', json);
     }});
 }
 
 async function main() {
     try {
         const browser = await puppeteer.launch({
-            headless: false,
+            headless: true,
             args: ['--no-sandbox', '--disable-setuid-sandbox']
         });
         const page = await browser.newPage();
