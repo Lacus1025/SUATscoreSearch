@@ -2,20 +2,20 @@ const url = new URL('https://education.suat-sz.edu.cn/api/biz/sdmgt/_score/stude
 
 const time = Math.floor(Date.now() / 1000);
 
-const cookies = 'sdp_app_session-443=dda7ded464078a0e97f9bfe1b9f0a6b5d70dad5585ba0733419ef1c40b9c82023d7d817b6ed79ef315e0588b7935ab6a679c21b55fa740f382a518e2d4cc566d6bbcf95e6cb1cc644b12349504752fab9f4c63b880c8a6fb98b24d2995fe7f2683cee181b113ff97ab801ba76de47e10f;sdp_app_session-legacy-443=da7ded464078a0e97f9bfe1b9f0a6b5d70dad5585ba0733419ef1c40b9c82023d7d817b6ed79ef315e0588b7935ab6a679c21b55fa740f382a518e2d4cc566d6bbcf95e6cb1cc644b12349504752fab9f4c63b880c8a6fb98b24d2995fe7f2683cee181b113ff97ab801ba76de47e10f'
+const cookies = '';
 
 console.log('timestamp:', time);
 
 // add param
-url.searchParams.append('studingTerm', '1948196930375290880');
+url.searchParams.append('studingTerm', '');
 url.searchParams.append('', '');
 url.searchParams.append('lessonName', '');
 url.searchParams.append('', '');
-url.searchParams.append('orgIds', '4af7fb9b0e594fad903a19d0d8222f3e');
+url.searchParams.append('orgIds', '');
 url.searchParams.append('', '');
 url.searchParams.append('sttName', '');
 url.searchParams.append('', '');
-url.searchParams.append('stuId', '1950583867341967360');
+url.searchParams.append('stuId', '');
 url.searchParams.append('n', time);
 url.searchParams.append('an', 'SUAT');
 
