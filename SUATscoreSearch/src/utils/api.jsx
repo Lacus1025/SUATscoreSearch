@@ -85,7 +85,7 @@ export function SearchScoreComponent() {
   }
 
   return (
-    <div>
+    <div className='submitbar'>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
