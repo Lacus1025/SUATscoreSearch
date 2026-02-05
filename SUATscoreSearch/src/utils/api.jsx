@@ -59,10 +59,11 @@ export function SearchScoreComponent() {
   const [password, setPassword] = useState('');
   const [veriCode, setVeriCode] = useState('');
 
+  const [userData, setUserData] = useState(null);
+
   async function handleSubmit(e){
     e.preventDefault();
-    try {
-      const response = await fetch(`http://localhost:3000/api/userInfo?timestamp=${timestamp}`, {
+      await fetch(`http://localhost:3000/api/userInfo?timestamp=${timestamp}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -70,18 +71,10 @@ export function SearchScoreComponent() {
           password: password,
           veriCode: veriCode,
           timestamp: timestamp
-        })});
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      console.log(response);
-
-      }
-    catch(error){
-        console.log(error);
-      }
+        })})
+      .then(response => response.json())
+      .then(data => console.log(data.data))
+      .catch(error => console.error('Error:', error));
   }
 
   return (
@@ -107,6 +100,33 @@ export function SearchScoreComponent() {
         />
         <button type="submit">查询</button>
       </form>
-    </div>
+
+      {userData && (<div>
+
+        <table border="1" style={{ borderCollapse: 'collapse', width: '100%' }}>
+          <thead>
+            <tr>
+              {Object.keys(userData[0]).map((key) => (
+                <th key={key} style={{ padding: '8px', backgroundColor: '#f2f2f2' }}>
+                  {key}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {userData.map((item, index) => (
+              <tr key={index}>
+                {Object.values(item).map((value, idx) => (
+                  <td key={idx} style={{ padding: '8px' }}>
+                    {value}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      )}
+      </div>
   );
 }
