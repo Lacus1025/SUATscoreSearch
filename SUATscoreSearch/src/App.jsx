@@ -551,6 +551,8 @@ function ScoreTable({ scoredata }) {
     { key: 'credit', label: '学分' },
     { key: 'scoreLevel', label: '等级' },
     { key: 'scoreGpa', label: '绩点' },
+    {key:'scoreAll',label:'总成绩'},
+    {key:'score'}
   ];
 
   const calculateStats = () => {
